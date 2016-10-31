@@ -1,14 +1,14 @@
-# Dash-Button-HA
-Home Automation system running on Node JS
+# Dash Button HA
+Home Automation system for the Amazon Dash Button on Node.
 
 ### Setup
-This program uses [dash_button](https://github.com/ide/dash-button), a npm package by James Ide.
+This program uses [dash_button](https://github.com/ide/dash-button), a npm package by James Ide, to interact with the Amazon Dash Button.
 
 Install dash_button:  
   
 `npm install --save dash-button`
 
-Install Babel JS compiler (optional):  
+Babel JS compiler (optional):  
   
 `npm install --save-dev babel-cli babel-preset-es2017`
 
@@ -18,7 +18,7 @@ If Babel is used, set the preset transformation as ES2017:
 `echo '{ "presets": ["es2017"] }' > .babelrc`
 
 ### Retrieving the MAC Address of the Amazon Dash Button
-The dash-button package includes a script that can easily retrieve the MAC Address of an Amazon Dash Button sending DHCP requests or ARP probes.  
+The dash-button package includes a script that can easily retrieve the MAC Address of Amazon Dash Buttons sending DHCP requests or ARP probes.  
   
 To run it, add a scan script to the `scripts` section of package.json:  
   
@@ -33,7 +33,7 @@ And run it with sudo:
   
 `sudo npm run scan`
   
-If the server and Dash button is connected to a specific network interface that might require configurations, specificy it explicitly in the command line:  
+If the server and Dash button is connected to a specific network interface that might require additional configurations, specificy the interface explicitly in the command line:  
   
 `sudo npm run scan -- --interface en1`
 
@@ -42,7 +42,7 @@ With Babel:
   
 `./node_modules/.bin/babel-node index.js`
   
-You can also configure `npm start` to execute `index.js` with Babel. Add a start to the `Scripts` section of package.json.  
+You can also configure `npm start` to execute `index.js` with Babel — to do so, add a start to the `Scripts` section of package.json:   
   
 ```JSON
 "scripts": {
