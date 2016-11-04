@@ -29,5 +29,8 @@ let city = "Seattle";
 var sunriseInSeconds;
 
 daylightDetector.getSunrise(city, apiToken, function(response) {
-    console.log("Index JS Sunrise: ", response);
+    console.log("Sunrise: ", response);
+});
+daylightDetector.getSunset(city, apiToken, function(response) {
+    console.log("Sunset: ", response);
 });
