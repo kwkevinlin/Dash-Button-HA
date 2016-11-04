@@ -4,31 +4,34 @@
 *
 */
 
-class DaylightDetector {
+module.exports = {
+    getSunrise: function (city, apiToken, callback) {
+        console.log("getSunrise");
 
-    var apiBaseUrl = "http://api.openweathermap.org/data/2.5/weather?";
+        let apiBaseUrl = "http://api.openweathermap.org/data/2.5/weather?";
+        let url = apiBaseUrl + "q=" + city + "&appid=" + apiToken;
 
-    constructor(api, city) {
-        this.apiToken = api;
-        this.city = city;
+        var request = require('request');
+        
+        request(url, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                // Why is body not in JSON? Need explicit convert?
+                console.log("Got response: ", JSON.parse(body).sys.sunrise);
+                callback(JSON.parse(body).sys.sunrise);
+            } else {
+                callback("Bloody error! Could not get sunrise time.");
+            }
+        });
+    },
+
+    getSunset: function (city, apiToken) {
+        console.log("getSunset");
+        // Make below async
+        // response = makeWeatherApiCall(city, apiToken);
+        // return response.sys.sunset;
     }
+};
 
-    function getSunrise() {
-        response = _makeApiCall();
-        let sunrise = response.sys.sunrise;
-    }
-
-    function getSunset() {
-        response = _makeApiCall();
-        let sunset = response.sys.sunset;
-    }
-
-    function _makeApiCall() {
-        url = this.apiBaseUrl + "q=" + this.city + "&appid=" + this.apiToken;
-
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open("GET", url, false); // false for synchronous request
-        xmlHttp.send(null);
-        return xmlHttp.responseText;
-    }
-}
+var makeWeatherApiCall = function (city, apiToken) {
+    // Put API call here
+};
