@@ -7,14 +7,12 @@ var request = require('request');
 
 module.exports = {
     getSunrise: function (city, apiToken, callback) {
-        console.log("getSunrise");
         makeWeatherApiCall(city, apiToken, function(response) {
             callback(response.sunrise);
         });
     },
 
     getSunset: function (city, apiToken, callback) {
-        console.log("getSunset");
         makeWeatherApiCall(city, apiToken, function(response) {
             callback(response.sunset);
         });
