@@ -8,7 +8,7 @@ var app = express();
 let blindsController = require('../scripts/BlindsController');
 
 app.get('/', function(req, res) {
-    console.log("\nEndpoint '/' hit\nResponse: 'Invalid endpoint'");
+    console.log("\nEndpoint '/' hit\nResponse: 'Invalid endpoint'.");
     res.status(400).send( { 
         error: "Invalid endpoint. You blew it!"
     });
@@ -16,7 +16,7 @@ app.get('/', function(req, res) {
 
 app.get('/blinds/state', function(req, res) {
     blindsController.getBlindsState(function(state) {
-        console.log("\nEndpoint '/blinds/state' hit\nReturning: '" + state + "'");
+        console.log("\nEndpoint '/blinds/state' hit\nResponse: '" + state + "'.");
         res.status(200).send({
             State: state
         });
@@ -24,7 +24,7 @@ app.get('/blinds/state', function(req, res) {
 });
 
 app.get('/blinds/action', function(req, res) {
-    console.log("\nEndpoint '/blinds/action' hit\nResponse: 'Invalid endpoint'");
+    console.log("\nEndpoint '/blinds/action' hit\nResponse: 'Invalid endpoint'.");
     res.status(400).send( { 
         error: "Invalid endpoint. You are probably looking for '/blinds/action/:action', " +
                "where a valid action is 'move', 'open', or 'close'."
@@ -46,7 +46,7 @@ app.get('/blinds/action/:action', function(req, res) {
         blindsController.closeBlinds();
     } 
     else {
-        console.log("Response: 'Invalid action'\n");
+        console.log("Response: 'Invalid action'.");
         res.status(400).send( { 
             error: "Invalid action. Please use 'move', or 'open' / 'close' for specific actions."
         });
