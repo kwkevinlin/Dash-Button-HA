@@ -19,6 +19,7 @@
 */
 
 let config = require('./config');
+let endpoint = require('./apps/apps.js');
 let DashButton = require('dash-button');
 let daylightDetector = require('./scripts/DaylightDetector');
 let blindsController = require('./scripts/BlindsController');
@@ -50,3 +51,10 @@ let subscription = button.addListener(async () => {
         console.log("Current Blinds State: " + state);
     });
 });
+
+
+
+/*
+    TODO:
+    node-cron
+*/
