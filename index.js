@@ -19,7 +19,8 @@
 */
 
 let config = require('./config');
-let endpoint = require('./apps/apps.js');
+let cron = require('./scripts/cron');
+let endpoint = require('./apps/apps');
 let DashButton = require('dash-button');
 let daylightDetector = require('./scripts/DaylightDetector');
 let blindsController = require('./scripts/BlindsController');
@@ -37,6 +38,8 @@ daylightDetector.getSunset(city, apiToken, function(response) {
     console.log("Sunset: ", response);
 });
 
+cron.setDailyAutomationCron();
+
 
 // Dash Button Listener
 let mac_address = config.dash_button.mac;
@@ -51,7 +54,6 @@ let subscription = button.addListener(async () => {
         console.log("Current Blinds State: " + state);
     });
 });
-
 
 
 /*
