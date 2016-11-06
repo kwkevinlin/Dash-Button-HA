@@ -9,7 +9,10 @@
   "author": "Kevin Lin",
   "license": "ISC",
   "dependencies": {
-    "dash-button": "^2.0.0"
+    "dash-button": "2.x.x",
+    "babel-cli": "6.18.x",
+    "babel-preset-es2017": "6.16.x",
+    "request": "2.x.x"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
