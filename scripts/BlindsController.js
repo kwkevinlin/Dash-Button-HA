@@ -8,26 +8,26 @@ var currentBlindsState = "closed";
 module.exports = {
     moveBlinds: function () {
         if (currentBlindsState == "closed") {
-            openBlinds();
+            this.openBlinds();
             currentBlindsState = "opened";
             console.log("Blinds opened");
         } else {
-            closeBlinds();
+            this.closeBlinds();
             currentBlindsState = "closed";
             console.log("Blinds closed");
         }
     },
 
+    openBlinds: function() {
+        console.log("Opening blinds...");
+    },
+
+    closeBlinds: function() {
+        console.log("Closing blinds...");
+    },
+
+
     getBlindsState: function (callback) {
         callback(currentBlindsState);
     }
-};
-
-
-var openBlinds = function() {
-    console.log("Opening blinds...");
-};
-
-var closeBlinds = function() {
-    console.log("Closing blinds...");
 };
