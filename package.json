@@ -13,6 +13,7 @@
     "babel-cli": "6.18.x",
     "babel-preset-es2017": "6.16.x",
     "request": "2.x.x",
-    "express": "4.x.x"
+    "express": "4.x.x",
+    "cron": "1.x.x"
   }
 }
