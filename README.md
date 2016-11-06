@@ -3,15 +3,10 @@ Home Automation system for the Amazon Dash Button on Node.
 
 ### Setup
 This program uses [dash_button](https://github.com/ide/dash-button), a npm package by James Ide, to interact with the Amazon Dash Button.
-
-Install dash_button:  
   
-`npm install --save dash-button`
-
-Babel JS compiler (optional):  
+It also uses Babel for ES2017, and `request` for API calls. Use `npm install` to install all packages:  
+`npm install`  
   
-`npm install --save-dev babel-cli babel-preset-es2017`
-
 #### Babel Configurations
 If Babel is used, set the preset transformation as ES2017:  
   
@@ -42,7 +37,7 @@ With Babel:
   
 `./node_modules/.bin/babel-node index.js`
   
-You can also configure `npm start` to execute `index.js` with Babel — to do so, add a start to the `Scripts` section of package.json:   
+You can also configure `npm start` to execute `index.js` with Babel. This is already added in package.json:
   
 ```JSON
 "scripts": {
