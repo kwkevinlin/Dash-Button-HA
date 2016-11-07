@@ -26,18 +26,7 @@ let daylightDetector = require('./scripts/DaylightDetector');
 let blindsController = require('./scripts/BlindsController');
 
 
-// Automation
-let apiToken = config.OpenWeatherMap.api;
-let city = "Seattle";
-var sunriseInSeconds;
-
-daylightDetector.getSunrise(city, apiToken, function(response) {
-    console.log("Sunrise: ", response);
-});
-daylightDetector.getSunset(city, apiToken, function(response) {
-    console.log("Sunset: ", response);
-});
-
+// Automate blinds cron job
 cron.setDailyAutomationCron();
 
 
@@ -45,7 +34,7 @@ cron.setDailyAutomationCron();
 let mac_address = config.dash_button.mac;
 let button = new DashButton(mac_address);
 
-console.log("\nListening for button presses...");
+console.log("Listening for Dash presses...");
 
 let subscription = button.addListener(async () => {
     console.log("\nButton pressed!");
@@ -58,5 +47,5 @@ let subscription = button.addListener(async () => {
 
 /*
     TODO:
-    node-cron
+    blinds percent open
 */
