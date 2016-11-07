@@ -4,6 +4,7 @@
 *
 */
 var currentBlindsState = "closed";
+var blindsStateInPercent = 0;
 
 module.exports = {
     moveBlinds: function () {
@@ -26,6 +27,10 @@ module.exports = {
         console.log("Closing blinds...");
     },
 
+    moveByPercent: function(percent) {
+        // 0 = close, 100 = open
+        console.log("Moving blinds to " + percent + "% open...");
+    },
 
     getBlindsState: function (callback) {
         callback(currentBlindsState);
