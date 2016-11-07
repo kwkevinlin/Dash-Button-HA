@@ -31,18 +31,15 @@ module.exports = {
 };
 
 function setOneTimeCron(utcSeconds) {
-    console.log("API returned: ", utcSeconds);
-
     /*
         Make test date for 5 seconds later
     */
-    var next_scheduled_job = new Date(0);
-    next_scheduled_job.setUTCSeconds(utcSeconds);
-    console.log(next_scheduled_job);
+
+    var next_scheduled_job = new Date(utcSeconds * 1000);
 
     var oneTimeCron = new CronJob(next_scheduled_job, function() {
         blindsController.moveBlings();
     }, null, true, 'America/Los_Angeles');
 
-    console.log("Scheduled next moveBlinds job at ", next_scheduled_job);
+    console.log("Scheduled next moveBlinds job at ", next_scheduled_job.toString());
 }
