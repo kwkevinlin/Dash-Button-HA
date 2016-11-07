@@ -12,10 +12,6 @@
 *  the data is used to automate the opening and closing of
 *  the venetian blinds every morning and night, respectively.
 *
-*  Deciding on whether to split the project into two distinct
-*  portions -- the Node JS server that handles the dash button
-*  clicks and other misc HA tasks, and the sunrise/sunset
-*  automation that runs via the cron.
 */
 
 let config = require('./config');
@@ -30,8 +26,8 @@ cron.setDailyAutomationCron();
 
 
 // Dash Button Listener
-let mac_address = config.dash_button.mac;
-let button = new DashButton(mac_address);
+let macAddress = config.dashButton.mac;
+let button = new DashButton(macAddress);
 
 console.log("Listening for Dash presses...");
 
@@ -42,9 +38,3 @@ let subscription = button.addListener(async () => {
         console.log("Current Blinds State: " + state);
     });
 });
-
-
-/*
-    TODO:
-    blinds percent open
-*/

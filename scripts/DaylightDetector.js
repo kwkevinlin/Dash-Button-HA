@@ -25,7 +25,6 @@ var makeWeatherApiCall = function (city, apiToken, callback) {
     
     request(url, function (error, response, body) {
         if (!error && response.statusCode == 200) {
-            // Why is body not in JSON? Need explicit convert?
             callback(JSON.parse(body).sys);
         } else {
             callback("Bloody error! Could not get API response from Open Weather Map.");

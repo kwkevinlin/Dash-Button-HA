@@ -14,14 +14,14 @@ module.exports = {
                0 30 4,16 * * *
                Every day at 4:30 am and 4:30 pm 
         */
-        var dailyCron = new CronJob('*/5 * * * * *', function() {
+        var dailyCron = new CronJob('*/10 * * * * *', function() {
             console.log('You will see this message every five seconds');
 
-            let city = config.OpenWeatherMap.city;
-            let apiToken = config.OpenWeatherMap.api;
+            let city = config.openWeatherMap.city;
+            let apiToken = config.openWeatherMap.api;
 
-            var current_hour = new Date().getHours();
-            if (current_hour < 12) {
+            var currentHour = new Date().getHours();
+            if (currentHour < 12) {
                 daylightDetector.getSunrise(city, apiToken, setOneTimeCron);
             } else {
                 daylightDetector.getSunset(city, apiToken, setOneTimeCron);
@@ -32,15 +32,15 @@ module.exports = {
 
 function setOneTimeCron(utcSeconds) {
     // For test
-    // var next_scheduled_job = new Date();
-    // next_scheduled_job.setSeconds(next_scheduled_job.getSeconds() + 3);
-    // console.log("New time: ", next_scheduled_job.toString())
+    // var nextScheduledJob = new Date();
+    // nextScheduledJob.setSeconds(nextScheduledJob.getSeconds() + 3);
+    // console.log("New time: ", nextScheduledJob.toString())
 
-    var next_scheduled_job = new Date(utcSeconds * 1000);
+    var nextScheduledJob = new Date(utcSeconds * 1000);
 
-    var oneTimeCron = new CronJob(next_scheduled_job, function() {
+    var oneTimeCron = new CronJob(nextScheduledJob, function() {
         blindsController.moveBlinds();
     }, null, true, 'America/Los_Angeles');
 
-    console.log("Scheduled next moveBlinds job at ", next_scheduled_job.toString());
+    console.log("Scheduled next moveBlinds job at:", nextScheduledJob.toString());
 }
