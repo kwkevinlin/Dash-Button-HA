@@ -9,9 +9,7 @@ let blindsController = require('../scripts/BlindsController');
 
 app.get('/', function(req, res) {
     console.log("\nEndpoint '/' hit\nResponse: 'Invalid endpoint'.");
-    res.status(400).send( { 
-        error: "Invalid endpoint. You blew it!"
-    });
+    sendStatus400("Invalid endpoint. You blew it!");
 });
 
 app.get('/blinds/state', function(req, res) {
@@ -23,16 +21,8 @@ app.get('/blinds/state', function(req, res) {
     });
 });
 
-app.get('/blinds/action', function(req, res) {
-    console.log("\nEndpoint '/blinds/action' hit\nResponse: 'Invalid endpoint'.");
-    res.status(400).send( { 
-        error: "Invalid endpoint. You are probably looking for '/blinds/action/:action', " +
-               "where a valid action is 'move', 'open', or 'close'."
-    });
-});
-
-app.get('/blinds/action/:action', function(req, res) {
-    console.log("\nEndpoint '/blinds/action/" + action + "' hit\n");
+app.get('/blinds/:action', function(req, res) {
+    console.log("\nEndpoint '/blinds/" + action + "' hit\n");
     var action = req.params.action;
 
     if (action == "move") {
@@ -45,11 +35,17 @@ app.get('/blinds/action/:action', function(req, res) {
     else if (action == "close") {
         blindsController.closeBlinds();
     } 
+    else if (!isNaN(action)) {
+        var percent = parseInt(action);
+        if (percent < 0 || percent > 100) {
+            console.log("Response: 'Invalid percentage given'.");
+            sendStatus400("Invalid percentage given. Percentage can only be from 0 to 100.");
+        }
+        blindsController.moveByPercent(action);
+    }
     else {
         console.log("Response: 'Invalid action'.");
-        res.status(400).send( { 
-            error: "Invalid action. Please use 'move', or 'open' / 'close' for specific actions."
-        });
+        sendStatus400("Invalid action. Please use 'move', or 'open' / 'close' for specific actions.");
     }
 
     res.status(200).send({
@@ -59,3 +55,9 @@ app.get('/blinds/action/:action', function(req, res) {
 
 app.listen(7000);
 console.log('Listening on port 7000...');
+
+function sendStatus400(message) {
+    res.status(400).send( { 
+        error: message
+    });
+}
