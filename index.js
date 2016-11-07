@@ -22,7 +22,6 @@ let config = require('./config');
 let cron = require('./scripts/cron');
 let endpoint = require('./apps/apps');
 let DashButton = require('dash-button');
-let daylightDetector = require('./scripts/DaylightDetector');
 let blindsController = require('./scripts/BlindsController');
 
 
