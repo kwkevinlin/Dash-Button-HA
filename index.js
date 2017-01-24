@@ -1,16 +1,16 @@
 /*
 *  Node JS Home Automation server running on Raspberry Pi
 *  
-* **************************
-* *  Still in Development **
-* **************************
+* ********************
+* *  In Development **
+* ********************
 * 
-*  This script allows the usage of an Amazon dash button to
+*  This script allows the usage of Amazon dash buttons to
 *  manually open and close venetian blinds. This script also
 *  contains an automation that runs twice a day, gathering
 *  data on the time of sunrise and sunset. Once retrieved,
 *  the data is used to automate the opening and closing of
-*  the venetian blinds every morning and night, respectively.
+*  blinds every morning and night.
 *
 */
 
@@ -21,18 +21,26 @@ let DashButton = require('dash-button');
 let blindsController = require('./scripts/BlindsController');
 
 
+/*
+    This is a quick temp commit. Just want to get Hue automation working for now!
+    Todo
+    Work on modularizing
+    Refactor, especially HueControl
+    Hue turnOn print/return "All lights off" if all lights off
+*/
+
 // Automate blinds cron job
-cron.setDailyAutomationCron();
+// cron.setDailyAutomationCron();
 
 
 // Dash Button Listener
-let macAddress = config.dashButton.mac;
-let button = new DashButton(macAddress);
+let macAddress = config.dashButton.supergoop;
+let buttonSupergoop = new DashButton(macAddress);
 
 console.log("Listening for Dash presses...");
 
-let subscription = button.addListener(async () => {
-    console.log("\nButton pressed!");
+let subscription = buttonSupergoop.addListener(async () => {
+    console.log("\Supergood button pressed!");
     blindsController.moveBlinds();
     blindsController.getBlindsState(function(state) {
         console.log("Current Blinds State: " + state);

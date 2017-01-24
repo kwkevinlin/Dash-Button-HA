@@ -1,7 +1,7 @@
 {
-  "name": "dash_button",
+  "name": "home_automation",
   "version": "1.0.0",
-  "description": "Dash button node server for home automation",
+  "description": "Home automation system with modularized functions",
   "main": "index.js",
   "scripts": {
     "start": "sudo ./node_modules/.bin/babel-node index.js"
