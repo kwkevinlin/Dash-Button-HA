@@ -1,5 +1,5 @@
 # Dash Button HA
-Home Automation system for the Amazon Dash Button on Node.
+Home Automation system in Node.js.
 
 ### Setup
 This program uses [dash_button](https://github.com/ide/dash-button), a npm package by James Ide, to interact with the Amazon Dash Button.
