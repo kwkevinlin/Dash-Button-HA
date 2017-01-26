@@ -9,13 +9,14 @@ let hue = require('../scripts/HueControl');
 let blindsController = require('../scripts/BlindsController');
 
 app.get('/', function(req, res) {
-    console.log("\nEndpoint '/' hit\nResponse: 'Invalid endpoint'.");
+    console.log("\nEndpoint '/' hit  (Time: " + currentTime() + ")\n" + 
+                "Response: 'Invalid endpoint'.");
     sendStatus400(res, "Invalid endpoint. You blew it!");
 });
 
 app.get('/hue/:action', function(req, res) {
     var action = req.params.action;
-    console.log("\nEndpoint '/hue/" + action + "' hit\n");
+    console.log("\nEndpoint '/hue/" + action + "' hit  (Time: " + currentTime() + ")\n");
 
     if (action == "on") {
         hue.turnOn(function(state) {
@@ -37,7 +38,8 @@ app.get('/hue/:action', function(req, res) {
 
 app.get('/blinds/state', function(req, res) {
     blindsController.getBlindsState(function(state) {
-        console.log("\nEndpoint '/blinds/state' hit\nResponse: '" + state + "'.");
+        console.log("\nEndpoint '/blinds/state' hit   (Time: " + currentTime() + ")\n" +
+                    "Response: '" + state + "'.");
         res.status(200).send({
             State: state
         });
@@ -46,7 +48,7 @@ app.get('/blinds/state', function(req, res) {
 
 app.get('/blinds/:action', function(req, res) {
     var action = req.params.action;
-    console.log("\nEndpoint '/blinds/" + action + "' hit\n");
+    console.log("\nEndpoint '/blinds/" + action + "' hit  (Time: " + currentTime() + ")\n");
 
     if (action == "move") {
         // Auto-determines blind state and moves accordingly
@@ -83,4 +85,8 @@ function sendStatus400(res, message) {
     res.status(400).send( { 
         error: message
     });
+}
+
+function currentTime() {
+    return new Date(new Date().getTime()).toLocaleTimeString();
 }

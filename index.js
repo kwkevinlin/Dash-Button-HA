@@ -25,6 +25,8 @@ let blindsController = require('./scripts/BlindsController');
     This is a quick temp commit. Just want to get Hue automation working for now!
     Todo
     Hue on - 100% brightness
+    Ping notify if lights are on during work hours
+    Get IP address of request sender
     Work on modularizing
     Refactor, especially HueControl
     Hue turnOn print/return "All lights off" if all lights off
