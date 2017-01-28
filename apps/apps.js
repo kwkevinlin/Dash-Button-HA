@@ -88,5 +88,5 @@ function sendStatus400(res, message) {
 }
 
 function currentTime() {
-    return new Date(new Date().getTime()).toLocaleTimeString();
+    return new Date(new Date().getTime()).toLocaleString();
 }
