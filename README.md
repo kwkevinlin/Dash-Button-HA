@@ -1,5 +1,5 @@
 # Dash Button HA
-Home Automation system in Node.js.
+A Home Automation system in Node.js. Supports Philips Hue lights and Amazon Dash Buttons. Works in conjunction with Google Home and Tasker.
 
 ### Setup
 This program uses [dash_button](https://github.com/ide/dash-button), a npm package by James Ide, to interact with the Amazon Dash Button.
