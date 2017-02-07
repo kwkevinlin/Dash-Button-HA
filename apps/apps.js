@@ -18,13 +18,39 @@ app.get('/hue/:action', function(req, res) {
     var action = req.params.action;
     console.log("\nEndpoint '/hue/" + action + "' hit  (Time: " + currentTime() + ")\n");
 
+    var brightness = "80";
+
     if (action == "on") {
-        hue.turnOn(function(state) {
-        });
+        hue.turnOn(brightness);
     }
     else if (action == "off") {
-        hue.turnOff(function(state) {
-        });
+        hue.turnOff();
+    }
+    else {
+        console.log("Response: 'Invalid action'.");
+        sendStatus400(res, "Invalid action. Please use 'on' or 'off' to control the lights.");
+    }
+
+    res.status(200).send({
+        Status: "Success"
+    });
+});
+
+app.get('/hue/:action/:percent', function(req, res) {
+    var action = req.params.action;
+    var percent = req.params.percent;
+    console.log("\nEndpoint '/hue/" + action + "/:percent' hit  (Time: " + currentTime() + ")\n");
+
+    var brightness = "80";
+    if (parseInt(percent) >= 1 || parseInt(percent) <= 100) {
+        brightness = percent;
+    }
+
+    if (action == "on") {
+        hue.turnOn(brightness);
+    }
+    else if (action == "off") {
+        hue.turnOff();
     }
     else {
         console.log("Response: 'Invalid action'.");
