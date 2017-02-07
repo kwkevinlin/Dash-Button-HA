@@ -7,8 +7,8 @@ var request = require('request');
 let hueUser = require('../config').hue.user;
 
 module.exports = {
-    turnOn: function () {
-        turnOnAllLights();
+    turnOn: function (brightness) {
+        turnOnAllLights(brightness);
     },
 
     turnOff: function () {
@@ -16,7 +16,7 @@ module.exports = {
     }
 };
 
-var turnOnAllLights = function () { 
+var turnOnAllLights = function (brightness) { 
     let baseUrl = "http://192.168.1.228/api/";
     let url = baseUrl + hueUser;
     
@@ -26,7 +26,7 @@ var turnOnAllLights = function () {
             for (var light in response) {
                 if (response[light].state.on === false) {
                     console.log("Turning " + response[light].name + " on!");
-                    turnLightOn(light);
+                    turnLightOn(light, brightness);
                 }
             }
         } else {
@@ -36,11 +36,11 @@ var turnOnAllLights = function () {
     });
 };
 
-var turnLightOn = function (bulb) {
+var turnLightOn = function (bulb, brightness) {
     let baseUrl = "http://192.168.1.228/api/";
     let url = baseUrl + hueUser + "/lights/" + bulb + "/state";
 
-    body = "{\"on\":true}";
+    body = "{\"on\":true, \"bri\":" + getBrightnessValue(brightness) + "}";
 
     var request = require('request');
     request.put({url, body: body}, function(error, response, body) {
@@ -49,4 +49,8 @@ var turnLightOn = function (bulb) {
             console.log("Hue API! You have failed me.");
         }
     });
+};
+
+var getBrightnessValue = function (percent) {
+    return Math.round(percent / 100.0 * 254);
 };
