@@ -19,12 +19,12 @@ let cron = require('./scripts/Cron');
 let endpoint = require('./apps/apps');
 let DashButton = require('dash-button');
 let blindsController = require('./scripts/BlindsController');
+let hueControl = require('./scripts/HueControl');
 
 
 /*
-    This is a quick temp commit. Just want to get Hue automation working for now!
+    This is a work in progress!
     Todo
-    Hue on - 100% brightness
     Ping notify if lights are on during work hours
     Get IP address of request sender
     Work on modularizing
@@ -37,13 +37,18 @@ let blindsController = require('./scripts/BlindsController');
 
 
 // Dash Button Listener
-let macAddress = config.dashButton.supergoop;
-let buttonSupergoop = new DashButton(macAddress);
+let macAddressSupergoop = config.dashButton.supergoop;
+let macAddressBanana = config.dashButton.banana;
+let buttonSupergoop = new DashButton(macAddressSupergoop);
+let buttonBanana = new DashButton(macAddressBanana);
 
 console.log("Listening for Dash presses...");
 
 let subscription = buttonSupergoop.addListener(async () => {
-    console.log("\Supergood button pressed!");
+    console.log("Supergoop button pressed!");
+    //Lights
+    hueControl.turnOn();
+    // Blinds
     blindsController.moveBlinds();
     blindsController.getBlindsState(function(state) {
         console.log("Current Blinds State: " + state);
