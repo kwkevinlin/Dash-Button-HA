@@ -12,7 +12,7 @@ module.exports = {
     },
 
     turnOff: function () {
-        
+        turnOffAllLights();
     }
 };
 
@@ -26,7 +26,7 @@ var turnOnAllLights = function (brightness) {
             for (var light in response) {
                 if (response[light].state.on === false) {
                     console.log("Turning " + response[light].name + " on!");
-                    turnLightOn(light, brightness);
+                    changeBulbState("on", light, brightness);
                 }
             }
         } else {
@@ -36,11 +36,36 @@ var turnOnAllLights = function (brightness) {
     });
 };
 
-var turnLightOn = function (bulb, brightness) {
+var turnOffAllLights = function (brightness) { 
+    let baseUrl = "http://192.168.1.228/api/";
+    let url = baseUrl + hueUser;
+    
+    request(url, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            response = JSON.parse(body).lights;
+            for (var light in response) {
+                if (response[light].state.on === true) {
+                    console.log("Turning " + response[light].name + " off!");
+                    changeBulbState("off", light);
+                }
+            }
+        } else {
+            // Turn this into a callback and return if Hue's API fail
+            console.log("Hue API! You have failed me.");
+        }
+    });
+};
+
+var changeBulbState = function (state, bulb, brightness = null) {
     let baseUrl = "http://192.168.1.228/api/";
     let url = baseUrl + hueUser + "/lights/" + bulb + "/state";
 
-    body = "{\"on\":true, \"bri\":" + getBrightnessValue(brightness) + "}";
+    if (state == "on") {
+        body = "{\"on\":true, \"bri\":" + getBrightnessValue(brightness) + "}";
+    }
+    else {
+        body = "{\"on\":false}";
+    }
 
     var request = require('request');
     request.put({url, body: body}, function(error, response, body) {
