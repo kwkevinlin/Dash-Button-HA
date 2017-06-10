@@ -1,5 +1,5 @@
 /*
-*   DaylightDetectory.js
+*   DaylightDetector.js
 *   Kevin Lin
 *
 */
