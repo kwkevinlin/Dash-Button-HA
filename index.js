@@ -25,11 +25,9 @@ let hueControl = require('./scripts/HueControl');
 /*
     This is a work in progress!
     Todo
-    Ping notify if lights are on during work hours
     Get IP address of request sender
     Work on modularizing
     Refactor, especially HueControl
-    Hue turnOn print/return "All lights off" if all lights off
 */
 
 // Automate blinds cron job
