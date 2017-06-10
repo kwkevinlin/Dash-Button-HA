@@ -1,13 +1,18 @@
 /*
-*   Cron.js
+*   HueControl.js
 *   Kevin Lin
 *
 */
 var request = require('request');
 let hueUser = require('../config').hue.user;
 
+var lastCallTimestamp;
+
 module.exports = {
     turnOn: function (brightness) {
+        if (!isValidCall()) {
+            return;
+        }
         turnOnAllLights(brightness);
     },
 
@@ -16,7 +21,19 @@ module.exports = {
     }
 };
 
-var turnOnAllLights = function (brightness) { 
+var isValidCall = function() {
+    let now = new Date();
+    if (now.getHours() < 12) {
+        return false;
+    }
+    let hoursFromLastCall = (now - lastCallTimestamp) / 60*60*1000;
+    if (now.getHours() >= 22 && hoursFromLastCall < 3) {
+        return false;
+    }
+    return true;
+};
+
+var turnOnAllLights = function (brightness) {
     let baseUrl = "http://192.168.1.228/api/";
     let url = baseUrl + hueUser;
     
@@ -34,6 +51,8 @@ var turnOnAllLights = function (brightness) {
             console.log("Hue API! You have failed me.");
         }
     });
+
+    lastCallTimestamp = new Date();
 };
 
 var turnOffAllLights = function (brightness) { 
